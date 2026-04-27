@@ -12,14 +12,15 @@
 - Созданы rules для Cline (`.clinerules`)
 
 ## Следующие шаги
+- Выбрать модуль для code review
 - Провести code review выбранного модуля Ocelot с помощью AI
-- Сохранять все промты в `/homework/prompts/`
 - Оформить итоговый отчёт по code review
 
 ## Активные файлы
 - `homework/prompts/` — промты для учебного задания
+- `homework/description/` — описания проекта Ocelot
 - `.ai/memory_bank/` — контекст для AI-ассистента
 - `.ai/prompts/` — шаблоны промтов
 
 ## Последнее обновление
-2026-04-27
+2026-04-27 — Создано описание проекта Ocelot (detailed + short)
