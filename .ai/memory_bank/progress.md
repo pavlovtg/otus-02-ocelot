@@ -10,6 +10,7 @@
 - [x] Описание проекта Ocelot (`detailed-description.md`, `short-description.md`)
 - [x] Архитектурный анализ Ocelot с C4-диаграммами (`architecture.md`)
 - [x] Анализ сильных и слабых сторон архитектуры (`architecture-strengths-and-weaknesses.md`)
+- [x] Анализ открытых багов из GitHub Issues (`bugs-analysis.md`): 11 багов, 7 модулей, 1 Critical / 6 High / 3 Medium / 1 Low
 
 ## В работе
 - [ ] Выбор модуля для code review
@@ -34,3 +35,4 @@
 | 2026-04-27 | Создание описания проекта Ocelot (detailed + short) |
 | 2026-04-27 | Архитектурный анализ Ocelot: паттерны, карта модулей, C4-диаграммы |
 | 2026-04-27 | Анализ сильных и слабых сторон архитектуры: 7 сильных сторон, 10 уязвимостей, 6 зон техдолга, 10 рекомендаций |
+| 2026-04-27 | Анализ открытых багов GitHub Issues: 11 багов, 7 модулей, наиболее проблемный — Routing (3 бага), Critical — #1252 (DelegatingHandler) |

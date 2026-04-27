@@ -1,7 +1,7 @@
 # Active Context
 
 ## Текущая задача
-Анализ сильных и слабых сторон архитектуры Ocelot.
+Анализ открытых багов Ocelot из GitHub Issues.
 
 ## Что было сделано
 - Создана структура папок `.ai/memory_bank/` и `.ai/prompts/`
@@ -22,6 +22,12 @@
   - 10 слабыми сторонами и уязвимостями (HttpContext.Items как шина, static state в CookieStickySessions, GetAwaiter().GetResult() в lock, глобальный ProcessLocker, StringBuilder JSON, один делегат SD, захват IServiceProvider, static поля WatchKube, TODO-долг)
   - 6 зонами технического долга
   - 10 приоритизированными рекомендациями (2 критичных, 4 важных, 4 желательных)
+- Проведён анализ открытых багов из GitHub Issues (label=bug, state=open)
+- Создан отчёт `homework/description/bugs-analysis.md` с:
+  - 11 открытыми issues с тегом bug
+  - Анализом критичности (1 Critical, 6 High, 3 Medium, 1 Low)
+  - Распределением по 7 модулям (Routing, LoadBalancer, Aggregation, Middleware, ServiceDiscovery, Authorization, Administration)
+  - Выводами о наиболее проблемных модулях
 
 ## Следующие шаги
 - Выбрать модуль для code review
@@ -50,5 +56,14 @@
 - `ServiceDiscoveryProviderFactory` — поддерживает только один `ServiceDiscoveryFinderDelegate`
 - Newtonsoft.Json вместо System.Text.Json в .NET 8+ проекте
 
+## Ключевые баги (из GitHub Issues, для быстрого доступа)
+- **Critical**: #1252 — HttpContext теряется в DelegatingHandler (регрессия с v15.0.7)
+- **High**: #2143, #2191 — спецсимволы в Routing (OData `$query`, query string)
+- **High**: #714 — multipart/form-data не перенаправляется (404)
+- **High**: #1041, #1513 — LoadBalancer не исключает упавшие узлы (нет Health Check)
+- **High**: #2208 — Consul Node.Name может быть DNS-именем
+- Наиболее проблемный модуль: **Routing** (3 бага)
+- Наиболее критичный модуль: **Middleware** (содержит единственный Critical-баг)
+
 ## Последнее обновление
-2026-04-27 — Анализ сильных и слабых сторон архитектуры Ocelot
+2026-04-27 — Анализ открытых багов Ocelot из GitHub Issues
