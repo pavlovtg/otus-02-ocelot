@@ -53,6 +53,7 @@
 
 5. Формат сдачи
 Скопируйте себе документ по ссылке и заполните его.
+https://docs.google.com/document/d/1KMo_pFqf-KtJENEC-C0VsrlexZ4PTzIcocxwnxW73Cc/edit?usp=sharing
 
 ### Критерии оценки:
 Работа считается выполненной, если:
