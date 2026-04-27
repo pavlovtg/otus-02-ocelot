@@ -1,0 +1,5 @@
+{
+  // Настройки PlantUML для рендеринга диаграмм через публичный сервер
+  "plantuml.server": "https://www.plantuml.com/plantuml",
+  "plantuml.render": "PlantUMLServer"
+}
