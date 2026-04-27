@@ -468,11 +468,11 @@ return new ErrorResponse<ServiceHostAndPort>(new ServicesAreNullError(
 
 | # | Промт | Назначение |
 |---|-------|-----------|
-| 01 | [01-init-ai.md](homework/prompts/01-init-ai.md) | Инициализация AI-ассистента, настройка контекста |
-| 02 | [02-project-description.md](homework/prompts/02-project-description.md) | Описание проекта Ocelot |
-| 03 | [03-analyze-architecture.md](homework/prompts/03-analyze-architecture.md) | Архитектурный анализ: паттерны, модули, C4-диаграммы |
-| 04 | [04-architecture-strengths-weaknesses.md](homework/prompts/04-architecture-strengths-weaknesses.md) | Сильные и слабые стороны архитектуры |
-| 05 | [05-analyze-bugs.md](homework/prompts/05-analyze-bugs.md) | Анализ открытых багов из GitHub Issues |
-| 06 | [06-choose-module.md](homework/prompts/06-choose-module.md) | Выбор модуля для code review (скоринг) |
-| 07 | [07-code-review.md](homework/prompts/07-code-review.md) | Code review модуля LoadBalancer |
-| 08 | [08-review-report.md](homework/prompts/08-review-report.md) | Формирование итогового отчёта |
+| 01 | [01-init-ai.md](prompts/01-init-ai.md) | Инициализация AI-ассистента, настройка контекста |
+| 02 | [02-project-description.md](prompts/02-project-description.md) | Описание проекта Ocelot |
+| 03 | [03-analyze-architecture.md](prompts/03-analyze-architecture.md) | Архитектурный анализ: паттерны, модули, C4-диаграммы |
+| 04 | [04-architecture-strengths-weaknesses.md](prompts/04-architecture-strengths-weaknesses.md) | Сильные и слабые стороны архитектуры |
+| 05 | [05-analyze-bugs.md](prompts/05-analyze-bugs.md) | Анализ открытых багов из GitHub Issues |
+| 06 | [06-choose-module.md](prompts/06-choose-module.md) | Выбор модуля для code review (скоринг) |
+| 07 | [07-code-review.md](prompts/07-code-review.md) | Code review модуля LoadBalancer |
+| 08 | [08-review-report.md](prompts/08-review-report.md) | Формирование итогового отчёта |
