@@ -1,7 +1,7 @@
 # Active Context
 
 ## Текущая задача
-Code review модуля LoadBalancer завершён.
+Итоговый отчёт по домашней работе сформирован и сохранён.
 
 ## Что было сделано
 - Создана структура папок `.ai/memory_bank/` и `.ai/prompts/`
@@ -12,36 +12,26 @@ Code review модуля LoadBalancer завершён.
 - Созданы rules для Cline (`.clinerules`)
 - Создано описание проекта Ocelot (`homework/description/detailed-description.md`, `short-description.md`)
 - Проведён архитектурный анализ проекта Ocelot
-- Создан отчёт `homework/description/architecture.md` с:
-  - Описанием 8 архитектурных паттернов (Middleware Pipeline, Strategy, Factory, Repository, Builder, Decorator, Observer, BFF)
-  - Картой модулей (22 модуля с назначением, интерфейсами и зависимостями)
-  - C4-диаграммами в формате PlantUML (Context, Container, Component)
+- Создан отчёт `homework/description/architecture.md`
 - Проведён анализ сильных и слабых сторон архитектуры
 - Создан отчёт `homework/description/architecture-strengths-and-weaknesses.md`
 - Проведён анализ открытых багов из GitHub Issues (label=bug, state=open)
 - Создан отчёт `homework/description/bugs-analysis.md`
-- Создан промт для выбора модуля code review (`homework/prompts/06-choose-module.md`)
 - Выполнен скоринг и выбран модуль LoadBalancer (Score=9.40)
 - Результат сохранён в `homework/review/choose-module.md`
-- **Создан промт для code review LoadBalancer** (`homework/prompts/07-code-review.md`)
-- **Проведён полный code review модуля LoadBalancer**
-- **Создан отчёт** `homework/review/load-balancer-review.md` с:
-  - 5 багами и ошибками выполнения
-  - 5 архитектурными ограничениями
-  - 4 замечаниями по читаемости
-  - 5 замечаниями по тестам
-  - 3 замечаниями по документации
-  - Итоговой таблицей из 22 замечаний с приоритетами
+- Проведён полный code review модуля LoadBalancer
+- Создан отчёт `homework/review/load-balancer-review.md` (22 замечания)
+- **Создан промт для итогового отчёта** (`homework/prompts/08-review-report.md`)
+- **Создан итоговый отчёт** `homework/review-report.md`
 
 ## Следующие шаги
-- Оформить commit и push результатов code review
-- Подготовить финальный отчёт для учебного задания
+- Оформить commit и push результатов
 
 ## Активные файлы
-- `homework/review/load-balancer-review.md` — итоговый отчёт code review
-- `homework/prompts/` — промты для учебного задания
+- `homework/review-report.md` — итоговый отчёт для сдачи домашней работы
+- `homework/review/load-balancer-review.md` — детальный code review
+- `homework/prompts/` — все промты (01–08)
 - `homework/description/` — описания проекта Ocelot
-- `.ai/memory_bank/` — контекст для AI-ассистента
 
 ## Ключевые архитектурные факты (для быстрого доступа)
 - Ocelot = конвейер из 18 ASP.NET Core middleware
@@ -61,4 +51,4 @@ Code review модуля LoadBalancer завершён.
 - Flaky-тесты из-за статического `Stored` в `CookieStickySessionsTests`
 
 ## Последнее обновление
-2026-04-27 — Завершён code review модуля LoadBalancer
+2026-04-27 — Создан итоговый отчёт homework/review-report.md
