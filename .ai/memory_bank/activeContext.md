@@ -1,7 +1,7 @@
 # Active Context
 
 ## Текущая задача
-Проведение code review выбранного модуля Ocelot.
+Code review модуля LoadBalancer завершён.
 
 ## Что было сделано
 - Создана структура папок `.ai/memory_bank/` и `.ai/prompts/`
@@ -17,35 +17,31 @@
   - Картой модулей (22 модуля с назначением, интерфейсами и зависимостями)
   - C4-диаграммами в формате PlantUML (Context, Container, Component)
 - Проведён анализ сильных и слабых сторон архитектуры
-- Создан отчёт `homework/description/architecture-strengths-and-weaknesses.md` с:
-  - 7 сильными сторонами (Middleware Pipeline, OCP через DI, Strategy+Factory, Fluent API, разделение конфигурации, Change Tracking, изоляция провайдеров)
-  - 10 слабыми сторонами и уязвимостями (HttpContext.Items как шина, static state в CookieStickySessions, GetAwaiter().GetResult() в lock, глобальный ProcessLocker, StringBuilder JSON, один делегат SD, захват IServiceProvider, static поля WatchKube, TODO-долг)
-  - 6 зонами технического долга
-  - 10 приоритизированными рекомендациями (2 критичных, 4 важных, 4 желательных)
+- Создан отчёт `homework/description/architecture-strengths-and-weaknesses.md`
 - Проведён анализ открытых багов из GitHub Issues (label=bug, state=open)
-- Создан отчёт `homework/description/bugs-analysis.md` с:
-  - 11 открытыми issues с тегом bug
-  - Анализом критичности (1 Critical, 6 High, 3 Medium, 1 Low)
-  - Распределением по 7 модулям (Routing, LoadBalancer, Aggregation, Middleware, ServiceDiscovery, Authorization, Administration)
-  - Выводами о наиболее проблемных модулях
-- **Создан промт для выбора модуля code review** (`homework/prompts/06-choose-module.md`)
-- **Выполнен скоринг и выбран модуль LoadBalancer** (Score=9.40)
-- Результат сохранён в `homework/review/choose-module.md`:
-  - Таблица скоринга 6 кандидатов
-  - Финальный выбор: **LoadBalancer**
-  - Обоснование выбора (3 пункта)
-  - Список ключевых файлов для code review
+- Создан отчёт `homework/description/bugs-analysis.md`
+- Создан промт для выбора модуля code review (`homework/prompts/06-choose-module.md`)
+- Выполнен скоринг и выбран модуль LoadBalancer (Score=9.40)
+- Результат сохранён в `homework/review/choose-module.md`
+- **Создан промт для code review LoadBalancer** (`homework/prompts/07-code-review.md`)
+- **Проведён полный code review модуля LoadBalancer**
+- **Создан отчёт** `homework/review/load-balancer-review.md` с:
+  - 5 багами и ошибками выполнения
+  - 5 архитектурными ограничениями
+  - 4 замечаниями по читаемости
+  - 5 замечаниями по тестам
+  - 3 замечаниями по документации
+  - Итоговой таблицей из 22 замечаний с приоритетами
 
 ## Следующие шаги
-- Провести code review выбранного модуля LoadBalancer
-- Создать промт для code review LoadBalancer
-- Оформить итоговый отчёт по code review
+- Оформить commit и push результатов code review
+- Подготовить финальный отчёт для учебного задания
 
 ## Активные файлы
+- `homework/review/load-balancer-review.md` — итоговый отчёт code review
 - `homework/prompts/` — промты для учебного задания
 - `homework/description/` — описания проекта Ocelot
 - `.ai/memory_bank/` — контекст для AI-ассистента
-- `.ai/prompts/` — шаблоны промтов
 
 ## Ключевые архитектурные факты (для быстрого доступа)
 - Ocelot = конвейер из 18 ASP.NET Core middleware
@@ -55,22 +51,14 @@
 - Провайдеры: `Ocelot.Provider.Consul`, `Ocelot.Provider.Kubernetes`
 - QoS: отдельный пакет `Ocelot.QualityOfService.Polly`
 
-## Ключевые проблемы архитектуры (для быстрого доступа)
-- `HttpContext.Items` со строковыми ключами — неявная шина данных между middleware
-- `CookieStickySessions.Stored` — static Dictionary, не масштабируется горизонтально
-- `GetAwaiter().GetResult()` внутри `lock` в `CookieStickySessions` и `PollConsul` — риск дедлока
-- `RateLimiting.ProcessLocker` — static глобальный мьютекс, узкое место при нагрузке
-- `ServiceDiscoveryProviderFactory` — поддерживает только один `ServiceDiscoveryFinderDelegate`
-- Newtonsoft.Json вместо System.Text.Json в .NET 8+ проекте
-
-## Ключевые баги (из GitHub Issues, для быстрого доступа)
-- **Critical**: #1252 — HttpContext теряется в DelegatingHandler (регрессия с v15.0.7)
-- **High**: #2143, #2191 — спецсимволы в Routing (OData `$query`, query string)
-- **High**: #714 — multipart/form-data не перенаправляется (404)
-- **High**: #1041, #1513 — LoadBalancer не исключает упавшие узлы (нет Health Check)
-- **High**: #2208 — Consul Node.Name может быть DNS-именем
-- Наиболее проблемный модуль: **Routing** (3 бага)
-- Наиболее критичный модуль: **Middleware** (содержит единственный Critical-баг)
+## Ключевые проблемы LoadBalancer (из code review)
+- `CookieStickySessions.Stored` — static Dictionary, не масштабируется горизонтально (утечка памяти)
+- `GetAwaiter().GetResult()` внутри `lock` в `CookieStickySessions` — риск дедлока
+- `CookieStickySessions.Release()` — пустая реализация, не передаёт вызов во внутренний балансировщик
+- `LeastConnection.SyncRoot` и `RoundRobin.SyncRoot` — статические локеры, глобальный bottleneck
+- `RoundRobin.LastIndices` — статический словарь, скрытое разделяемое состояние
+- Нет Health Check — балансировщики не исключают упавшие узлы (#1041, #1513)
+- Flaky-тесты из-за статического `Stored` в `CookieStickySessionsTests`
 
 ## Последнее обновление
-2026-04-27 — Анализ открытых багов Ocelot из GitHub Issues
+2026-04-27 — Завершён code review модуля LoadBalancer
