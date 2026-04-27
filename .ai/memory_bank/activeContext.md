@@ -1,7 +1,7 @@
 # Active Context
 
 ## Текущая задача
-Анализ открытых багов Ocelot из GitHub Issues.
+Проведение code review выбранного модуля Ocelot.
 
 ## Что было сделано
 - Создана структура папок `.ai/memory_bank/` и `.ai/prompts/`
@@ -28,10 +28,17 @@
   - Анализом критичности (1 Critical, 6 High, 3 Medium, 1 Low)
   - Распределением по 7 модулям (Routing, LoadBalancer, Aggregation, Middleware, ServiceDiscovery, Authorization, Administration)
   - Выводами о наиболее проблемных модулях
+- **Создан промт для выбора модуля code review** (`homework/prompts/06-choose-module.md`)
+- **Выполнен скоринг и выбран модуль LoadBalancer** (Score=9.40)
+- Результат сохранён в `homework/review/choose-module.md`:
+  - Таблица скоринга 6 кандидатов
+  - Финальный выбор: **LoadBalancer**
+  - Обоснование выбора (3 пункта)
+  - Список ключевых файлов для code review
 
 ## Следующие шаги
-- Выбрать модуль для code review
-- Провести code review выбранного модуля Ocelot с помощью AI
+- Провести code review выбранного модуля LoadBalancer
+- Создать промт для code review LoadBalancer
 - Оформить итоговый отчёт по code review
 
 ## Активные файлы
