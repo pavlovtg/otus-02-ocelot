@@ -1,7 +1,7 @@
 # Active Context
 
 ## Текущая задача
-Архитектурный анализ проекта Ocelot с построением C4-диаграмм.
+Анализ сильных и слабых сторон архитектуры Ocelot.
 
 ## Что было сделано
 - Создана структура папок `.ai/memory_bank/` и `.ai/prompts/`
@@ -16,6 +16,12 @@
   - Описанием 8 архитектурных паттернов (Middleware Pipeline, Strategy, Factory, Repository, Builder, Decorator, Observer, BFF)
   - Картой модулей (22 модуля с назначением, интерфейсами и зависимостями)
   - C4-диаграммами в формате PlantUML (Context, Container, Component)
+- Проведён анализ сильных и слабых сторон архитектуры
+- Создан отчёт `homework/description/architecture-strengths-and-weaknesses.md` с:
+  - 7 сильными сторонами (Middleware Pipeline, OCP через DI, Strategy+Factory, Fluent API, разделение конфигурации, Change Tracking, изоляция провайдеров)
+  - 10 слабыми сторонами и уязвимостями (HttpContext.Items как шина, static state в CookieStickySessions, GetAwaiter().GetResult() в lock, глобальный ProcessLocker, StringBuilder JSON, один делегат SD, захват IServiceProvider, static поля WatchKube, TODO-долг)
+  - 6 зонами технического долга
+  - 10 приоритизированными рекомендациями (2 критичных, 4 важных, 4 желательных)
 
 ## Следующие шаги
 - Выбрать модуль для code review
@@ -36,5 +42,13 @@
 - Провайдеры: `Ocelot.Provider.Consul`, `Ocelot.Provider.Kubernetes`
 - QoS: отдельный пакет `Ocelot.QualityOfService.Polly`
 
+## Ключевые проблемы архитектуры (для быстрого доступа)
+- `HttpContext.Items` со строковыми ключами — неявная шина данных между middleware
+- `CookieStickySessions.Stored` — static Dictionary, не масштабируется горизонтально
+- `GetAwaiter().GetResult()` внутри `lock` в `CookieStickySessions` и `PollConsul` — риск дедлока
+- `RateLimiting.ProcessLocker` — static глобальный мьютекс, узкое место при нагрузке
+- `ServiceDiscoveryProviderFactory` — поддерживает только один `ServiceDiscoveryFinderDelegate`
+- Newtonsoft.Json вместо System.Text.Json в .NET 8+ проекте
+
 ## Последнее обновление
-2026-04-27 — Архитектурный анализ Ocelot, C4-диаграммы (Context, Container, Component)
+2026-04-27 — Анализ сильных и слабых сторон архитектуры Ocelot
